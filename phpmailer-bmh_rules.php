@@ -393,6 +393,17 @@ function bmhBodyRules($body,$structure,$debug_mode=false) {
     $result['email']       = $match[1];
   }
 
+  /*
+   * rule: 554 delivery error
+   * sample:
+   * This user doesn't have a yahoo.com account
+   */
+  if (preg_match ("/<(\S+@\S+\w)>.*554 delivery error.*this user.*doesn't have.*account/is",$body,$match)) {
+    $result['rule_cat']    = 'unknown';
+    $result['rule_no']     = '0044';
+    $result['email']       = $match[1];
+  }
+
   global $rule_categories, $bmh_newline;
   if ($result['rule_no'] == '0000') {
     if ($debug_mode) {
