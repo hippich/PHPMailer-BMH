@@ -61,7 +61,7 @@ class BounceMailHandler {
    * Holds Bounce Mail Handler version.
    * @var string
    */
-  public $Version = "5.0.0rc1";
+  public $Version = "5.1";
 
   /**
    * Mail server
@@ -530,14 +530,14 @@ class BounceMailHandler {
       if ( trim($email) == '' ) {
         $email = $header->fromaddress;
       }
-      $params = array($pos,$bounce_type,$email,$subject,$xheader,$body,$remove,$rule_no,$rule_cat,$totalFetched);
+      $params = array($pos,$bounce_type,$email,$subject,$xheader,$remove,$rule_no,$rule_cat,$totalFetched,$body);
       call_user_func_array($this->action_function,$params);
     } else { // match rule, do bounce action
       if ($this->testmode) {
         $this->output('Match: ' . $rule_no . ':' . $rule_cat . '; ' . $bounce_type . '; ' . $email);
         return true;
       } else {
-        $params = array($pos,$bounce_type,$email,$subject,$xheader,$body,$remove,$rule_no,$rule_cat,$totalFetched);
+        $params = array($pos,$bounce_type,$email,$subject,$xheader,$remove,$rule_no,$rule_cat,$totalFetchedi,$body);
         return call_user_func_array($this->action_function,$params);
       }
     }
