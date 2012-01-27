@@ -460,6 +460,8 @@ class BounceMailHandler {
   function processBounce($pos,$type,$totalFetched) {
     $header      = imap_header($this->_mailbox_link,$pos);
     $subject     = strip_tags($header->subject);
+    $body        = '';
+
     if ($type == 'DSN') {
       // first part of DSN (Delivery Status Notification), human-readable explanation
       $dsn_msg = imap_fetchbody($this->_mailbox_link,$pos,"1");
@@ -528,14 +530,14 @@ class BounceMailHandler {
       if ( trim($email) == '' ) {
         $email = $header->fromaddress;
       }
-      $params = array($pos,$bounce_type,$email,$subject,$xheader,$remove,$rule_no,$rule_cat,$totalFetched);
+      $params = array($pos,$bounce_type,$email,$subject,$xheader,$body,$remove,$rule_no,$rule_cat,$totalFetched);
       call_user_func_array($this->action_function,$params);
     } else { // match rule, do bounce action
       if ($this->testmode) {
         $this->output('Match: ' . $rule_no . ':' . $rule_cat . '; ' . $bounce_type . '; ' . $email);
         return true;
       } else {
-        $params = array($pos,$bounce_type,$email,$subject,$xheader,$remove,$rule_no,$rule_cat,$totalFetched);
+        $params = array($pos,$bounce_type,$email,$subject,$xheader,$body,$remove,$rule_no,$rule_cat,$totalFetched);
         return call_user_func_array($this->action_function,$params);
       }
     }
