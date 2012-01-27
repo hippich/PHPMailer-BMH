@@ -398,9 +398,46 @@ function bmhBodyRules($body,$structure,$debug_mode=false) {
    * sample:
    * This user doesn't have a yahoo.com account
    */
-  if (preg_match ("/<(\S+@\S+\w)>.*554 delivery error.*this user.*doesn't have.*account/is",$body,$match)) {
+  if (preg_match ("/<(\S+@\S+\w)>.*554.*delivery error.*this user.*doesn't have.*account/is",$body,$match)) {
     $result['rule_cat']    = 'unknown';
     $result['rule_no']     = '0044';
+    $result['email']       = $match[1];
+  }
+
+  /*
+   * rule: 550 hotmail.com
+   */
+  if (preg_match ("/<(\S+@\S+\w)>.*550.*Requested.*action.*not.*taken:.*mailbox.*unavailable/is",$body,$match)) {
+    $result['rule_cat']    = 'unknown';
+    $result['rule_no']     = '0045';
+    $result['email']       = $match[1];
+  }
+
+  /*
+   * rule: 550 5.1.1 aim.com
+   */
+  if (preg_match ("/<(\S+@\S+\w)>.*550 5\.1\.1.*Recipient address rejected/is",$body,$match)) {
+    $result['rule_cat']    = 'unknown';
+    $result['rule_no']     = '0046';
+    $result['email']       = $match[1];
+  }
+
+
+  /**
+   * rule: 550 .* (in reply to end of DATA command)
+   */
+  if (preg_match ("/<(\S+@\S+\w)>.*550.*in reply to end of DATA command/i",$body,$match)) {
+    $result['rule_cat']    = 'unknown';
+    $result['rule_no']     = '0047';
+    $result['email']       = $match[1];
+  }
+
+  /**
+   * rule: 550 .* (in reply to RCPT TO command)
+   */
+  if (preg_match ("/<(\S+@\S+\w)>.*550.*in reply to RCPT TO command/i",$body,$match)) {
+    $result['rule_cat']    = 'unknown';
+    $result['rule_no']     = '0048';
     $result['email']       = $match[1];
   }
 
