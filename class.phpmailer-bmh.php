@@ -2,7 +2,7 @@
 /* class.phpmailer-bmh.php
 .---------------------------------------------------------------------------.
 |  Software: PHPMailer-BMH (Bounce Mail Handler)                            |
-|   Version: 5.0.0rc1                                                       |
+|   Version: 5.1
 |   Contact: codeworxtech@users.sourceforge.net                             |
 |      Info: http://phpmailer.codeworxtech.com                              |
 | ------------------------------------------------------------------------- |
@@ -24,7 +24,6 @@
 | - Technology Consulting                                                   |
 | - Oursourcing (highly qualified programmers and graphic designers)        |
 '---------------------------------------------------------------------------'
-Last updated: January 21 2009 13:49 EST */
 
 /**
  * PHPMailer-BMH (Bounce Mail Handler)
@@ -39,7 +38,7 @@ Last updated: January 21 2009 13:49 EST */
  * @author Andy Prevost
  * @copyright 2008-2009, Andy Prevost
  * @license GPL licensed
- * @version 5.0.0rc1
+ * @version 5.1
  * @link http://sourceforge.net/projects/bmh
  *
  */
