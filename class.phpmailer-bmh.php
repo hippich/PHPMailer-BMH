@@ -359,7 +359,11 @@ class BounceMailHandler {
         } else { // not standard DSN msg
           $this->output( 'Msg #' .  $x . ' is not a standard DSN message',VERBOSE_REPORT);
           if ($this->debug_body_rule) {
-            $this->output( "  Content-Type : {$match[1]}",VERBOSE_DEBUG);
+            if ($structure->ifdescription) {
+              $this->output( "  Content-Type : {$structure->description}",VERBOSE_DEBUG);
+            } else {
+              $this->output( "  Content-Type : unsupported",VERBOSE_DEBUG);
+            }
           }
           $processed = $this->processBounce($x,'BODY',$c_total);
         }
