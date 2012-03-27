@@ -303,7 +303,7 @@ class BounceMailHandler {
    * @return boolean
    */
   function processMailbox($max=false) {
-    if ( empty($this->action_function) || !function_exists($this->action_function) ) {
+    if ( empty($this->action_function) || !is_callable($this->action_function) ) {
       $this->error_msg = 'Action function not found!';
       $this->output();
       return false;
