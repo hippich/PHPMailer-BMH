@@ -481,6 +481,9 @@ class BounceMailHandler {
       $structure = imap_fetchstructure($this->_mailbox_link,$pos);
       switch ($structure->type) {
         case 0: // Content-type = text
+          $body = imap_fetchbody($this->_mailbox_link,$pos,"1");
+          $result = bmhBodyRules($body,$structure,$this->debug_body_rule);
+          break;
         case 1: // Content-type = multipart
           $body = imap_fetchbody($this->_mailbox_link,$pos,"1");
           // Detect encoding and decode - only base64
