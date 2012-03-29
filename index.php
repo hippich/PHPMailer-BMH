@@ -66,7 +66,7 @@ $bmh = new BounceMailHandler();
 /*
  * for local mailbox (to process .EML files)
  */
-//$bmh->openLocalDirectory('/home/email/temp/mailbox');
+//$bmh->openLocal('/home/email/temp/mailbox');
 //$bmh->processMailbox();
 
 /*
