@@ -36,10 +36,10 @@ function callbackAction ($msgnum, $bounce_type, $email, $subject, $xheader, $rem
   }
 
   $displayData = prepData($email, $bounce_type, $remove);
-  $bounce_type = $displayData[bounce_type];
-  $emailName   = $displayData[emailName];
-  $emailAddy   = $displayData[emailAddy];
-  $remove      = $displayData[remove];
+  $bounce_type = $displayData['bounce_type'];
+  $emailName   = $displayData['emailName'];
+  $emailAddy   = $displayData['emailAddy'];
+  $remove      = $displayData['remove'];
 
   echo $msgnum . ': '  . $rule_no . ' | '  . $rule_cat . ' | '  . $bounce_type . ' | '  . $remove . ' | ' . $email . ' | '  . $subject . "<br />\n";
 
@@ -48,44 +48,44 @@ function callbackAction ($msgnum, $bounce_type, $email, $subject, $xheader, $rem
 
 /* Function to clean the data from the Callback Function for optimized display */
 function prepData($email, $bounce_type, $remove) {
-  $data[bounce_type] = trim($bounce_type);
-  $data[email]       = '';
-  $data[emailName]   = '';
-  $data[emailAddy]   = '';
-  $data[remove]      = '';
+  $data['bounce_type'] = trim($bounce_type);
+  $data['email']       = '';
+  $data['emailName']   = '';
+  $data['emailAddy']   = '';
+  $data['remove']      = '';
   if ( strstr($email,'<') ) {
     $pos_start = strpos($email,'<');
-    $data[emailName] = trim(substr($email,0,$pos_start));
-    $data[emailAddy] = substr($email,$pos_start + 1);
-    $pos_end   = strpos($data[emailAddy],'>');
+    $data['emailName'] = trim(substr($email,0,$pos_start));
+    $data['emailAddy'] = substr($email,$pos_start + 1);
+    $pos_end   = strpos($data['emailAddy'],'>');
     if ( $pos_end ) {
-      $data[emailAddy] = substr($data[emailAddy],0,$pos_end);
+      $data['emailAddy'] = substr($data['emailAddy'],0,$pos_end);
     }
   }
 
   // replace the < and > able so they display on screen
   $email = str_replace('<','&lt;',$email);
   $email = str_replace('>','&gt;',$email);
-  $data[email]     = $email;
+  $data['email']     = $email;
 
   // account for legitimate emails that have no bounce type
   if ( trim($bounce_type) == '' ) {
-    $data[bounce_type] = 'none';
+    $data['bounce_type'] = 'none';
   }
 
   // change the remove flag from true or 1 to textual representation
   if ( stristr($remove,'moved') && stristr($remove,'hard') ) {
-    $data[removestat] = 'moved (hard)';
-    $data[remove] = '<span style="color:red;">' . 'moved (hard)' . '</span>';
+    $data['removestat'] = 'moved (hard)';
+    $data['remove'] = '<span style="color:red;">' . 'moved (hard)' . '</span>';
   } elseif ( stristr($remove,'moved') && stristr($remove,'soft') ) {
-    $data[removestat] = 'moved (soft)';
-    $data[remove] = '<span style="color:gray;">' . 'moved (soft)' . '</span>';
+    $data['removestat'] = 'moved (soft)';
+    $data['remove'] = '<span style="color:gray;">' . 'moved (soft)' . '</span>';
   } elseif ( $remove == true || $remove == '1' ) {
-    $data[removestat] = 'deleted';
-    $data[remove] = '<span style="color:red;">' . 'deleted' . '</span>';
+    $data['removestat'] = 'deleted';
+    $data['remove'] = '<span style="color:red;">' . 'deleted' . '</span>';
   } else {
-    $data[removestat] = 'not deleted';
-    $data[remove] = '<span style="color:gray;">' . 'not deleted' . '</span>';
+    $data['removestat'] = 'not deleted';
+    $data['remove'] = '<span style="color:gray;">' . 'not deleted' . '</span>';
   }
 
   return $data;
