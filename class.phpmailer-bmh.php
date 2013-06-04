@@ -543,7 +543,7 @@ class BounceMailHandler {
         $this->output('Match: ' . $rule_no . ':' . $rule_cat . '; ' . $bounce_type . '; ' . $email);
         return true;
       } else {
-        $params = array($pos,$bounce_type,$email,$subject,$xheader,$remove,$rule_no,$rule_cat,$totalFetchedi,$body);
+        $params = array($pos,$bounce_type,$email,$subject,$xheader,$remove,$rule_no,$rule_cat,$totalFetched,$body);
         return call_user_func_array($this->action_function,$params);
       }
     }
