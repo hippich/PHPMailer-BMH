@@ -571,7 +571,7 @@ class BounceMailHandler {
     if (is_array($list)) {
       foreach ($list as $key => $val) {
         // get the mailbox name only
-        $nameArr = split('}',imap_utf7_decode($val->name));
+        $nameArr = explode('}',imap_utf7_decode($val->name));
         $nameRaw = $nameArr[count($nameArr)-1];
         if ( $mailbox == $nameRaw ) {
           $mailboxFound = true;
@@ -598,7 +598,7 @@ class BounceMailHandler {
    * @return boolean
    */
   function globalDelete() {
-    $dateArr = split('-', $this->deleteMsgDate); // date format is yyyy-mm-dd
+    $dateArr = explode('-', $this->deleteMsgDate); // date format is yyyy-mm-dd
     $delDate = mktime(0, 0, 0, $dateArr[1], $dateArr[2], $dateArr[0]);
 
     $port  = $this->port . '/' . $this->service . '/' . $this->service_option;
@@ -608,7 +608,7 @@ class BounceMailHandler {
     if (is_array($list)) {
       foreach ($list as $key => $val) {
         // get the mailbox name only
-        $nameArr = split('}',imap_utf7_decode($val->name));
+        $nameArr = explode('}',imap_utf7_decode($val->name));
         $nameRaw = $nameArr[count($nameArr)-1];
         if ( !stristr($nameRaw,'sent') ) {
           $mboxd = imap_open('{'.$this->mailhost.":".$port.'}'.$nameRaw,$this->mailbox_username,$this->mailbox_password,CL_EXPUNGE);
